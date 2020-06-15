@@ -1,16 +1,27 @@
 const express = require('express');
-const RouteManager = require('./routes/RouteManager');
+const router = express.Router();
+
 const bodyParser = require('body-parser');
 const fileupload = require("express-fileupload");
+const FileController = require('./controllers/FileController');
 
 const app = express();
+const fileController = new FileController();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileupload());
 
-const routes = new RouteManager(app);
-routes.config();
+router.post('/subir-archivo', fileController.subirArchivo);
+
+router.use(function(req, res) {
+    res.status(404).json({
+        error: true,
+        message: 'Not Found'
+    });
+});
+
+app.use('/api', router);
 
 app.use(express.static(__dirname));
 

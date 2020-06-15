@@ -1,4 +1,4 @@
-const handleFileUpload = event => {
+const subirImagen = event => {
     const archivos = event.target.files;
     const data = new FormData();
 
@@ -18,5 +18,5 @@ const handleFileUpload = event => {
 }
 
 document.querySelector('#subir_archivo').addEventListener('change', event => {
-    handleFileUpload(event);
+    subirImagen(event);
 });
